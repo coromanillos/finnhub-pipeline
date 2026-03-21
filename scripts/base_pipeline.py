@@ -11,13 +11,13 @@ from typing import Type
 from dotenv import load_dotenv
 from pydantic import BaseModel, ValidationError
 
+load_dotenv()
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s — %(levelname)s — %(message)s"
 )
 logger = logging.getLogger(__name__)
-
-load_dotenv()
 
 from config import (
     API_KEY,

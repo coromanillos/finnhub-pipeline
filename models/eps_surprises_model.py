@@ -93,9 +93,9 @@ if quarter_counts:
     print(f"  Avg quarters returned:             {sum(quarter_counts) / len(quarter_counts):.1f}")
     under_4 = [(t, len(r)) for t, r in results.items() if r and len(r) < 4]
     if under_4:
-        print(f"  ⚠️  Tickers with fewer than 4 quarters: {under_4}")
+        print("  ⚠️  Tickers with fewer than 4 quarters: {under_4}")
     else:
-        print(f"  ✅ All tickers returned 4+ quarters")
+        print("  ✅ All tickers returned 4+ quarters")
     print()
 
 # ─────────────────────────────────────────

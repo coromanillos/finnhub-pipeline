@@ -103,33 +103,3 @@ TO_DATE = "2025-12-31"
 
 S3_BUCKET = "finnhub-pipeline-512724693644-us-east-1-an"
 BRONZE_PREFIX = "bronze"
-
-# ─────────────────────────────────────────────
-# RATE LIMIT SETTINGS
-# Learned during exploration — do not reduce these
-# ─────────────────────────────────────────────
-
-RATE_LIMIT = {
-    "company_profile2": 1,   # small flat response
-    "basic_financials": 1,   # fixed structure, manageable size
-    "eps_surprises":    1,   # 4 quarters, very small
-    "senate_lobbying":  2,   # large variable-length array per company
-    "usa_spending":     2    # large variable-length array per company
-}
-
-# ─────────────────────────────────────────────
-# OPTIONAL FIELDS PER ENDPOINT
-# Fields that are structurally empty — not data quality issues
-# ─────────────────────────────────────────────
-
-OPTIONAL_FIELDS = {
-    "senate_lobbying": {
-        "postedName", "date", "houseRegistrantId"
-    },
-    "usa_spending": {
-        "performanceCity", "performanceCongressionalDistrict",
-        "performanceCounty", "performanceZipCode", "performanceState",
-        "awardingOfficeName", "awardingSubAgencyName", "naicsCode",
-        "recipientParentName", "performanceEndDate", "performanceCountry"
-    }
-}

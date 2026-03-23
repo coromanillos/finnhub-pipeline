@@ -1,3 +1,4 @@
+# models/company_profile_model.py
 from pydantic import BaseModel, field_validator
 from typing import Union
 
@@ -7,23 +8,23 @@ class CompanyProfileModel(BaseModel):
     estimateCurrency:     str
     exchange:             str
     finnhubIndustry:      str
-    ipo:                  str           # "1980-12-12" — cast to date in dbt
+    ipo:                  str                # "1980-12-12" — cast to date in dbt
     logo:                 str
     marketCapitalization: float
     name:                 str
-    phone:                str           # numeric string — keep as str
+    phone:                str                # numeric string — keep as str
     shareOutstanding:     Union[int, float]  # scan showed both types
     ticker:               str
     weburl:               str
 
-    @field_validator("marketCapitalization")
+    @field_validator("marketCapitalization")  # ← inside class body
     @classmethod
     def market_cap_must_be_positive(cls, v):
         if v <= 0:
             raise ValueError(f"marketCapitalization must be positive, got {v}")
         return v
 
-    @field_validator("shareOutstanding")
+    @field_validator("shareOutstanding")      # ← inside class body
     @classmethod
     def shares_must_be_positive(cls, v):
         if v <= 0:

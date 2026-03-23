@@ -1,31 +1,20 @@
 # models/basic_financials_model.py
-
 from pydantic import BaseModel, field_validator
 from typing import Union, Optional
 
-# ─────────────────────────────────────────
-# Series entry — shape of each time-series data point
-# Used by both annual and quarterly series
-# ─────────────────────────────────────────
 class SeriesEntry(BaseModel):
     period: str
-    v:      Union[int, float, None]  # scan showed int and float — None seen in practice
+    v:      Union[int, float, None]
 
-# ─────────────────────────────────────────
-# Metric block — flat scalar financials
-# All 60/60 present and never null from scan
-# Only a representative set of fields validated —
-# full metric block has 100+ fields, most unused downstream
-# ─────────────────────────────────────────
 class MetricBlock(BaseModel):
-    tenDayAverageTradingVolume:    float = None  # 10DayAverageTradingVolume
-    thirteenWeekPriceReturnDaily:  float = None  # 13WeekPriceReturnDaily
-    twentySixWeekPriceReturnDaily: float = None  # 26WeekPriceReturnDaily
-    fiftyTwoWeekHigh:              Union[int, float] = None  # 52WeekHigh
-    fiftyTwoWeekHighDate:          str   = None  # 52WeekHighDate
-    fiftyTwoWeekLow:               Union[int, float] = None  # 52WeekLow
-    fiftyTwoWeekLowDate:           str   = None  # 52WeekLowDate
-    fiftyTwoWeekPriceReturnDaily:  float = None  # 52WeekPriceReturnDaily
+    tenDayAverageTradingVolume:    Optional[float] = None
+    thirteenWeekPriceReturnDaily:  Optional[float] = None
+    twentySixWeekPriceReturnDaily: Optional[float] = None
+    fiftyTwoWeekHigh:              Optional[Union[int, float]] = None
+    fiftyTwoWeekHighDate:          Optional[str]   = None
+    fiftyTwoWeekLow:               Optional[Union[int, float]] = None
+    fiftyTwoWeekLowDate:           Optional[str]   = None
+    fiftyTwoWeekPriceReturnDaily:  Optional[float] = None
     assetTurnoverAnnual:           Optional[float] = None
     assetTurnoverTTM:              Optional[float] = None
     beta:                          Optional[float] = None
@@ -40,29 +29,22 @@ class MetricBlock(BaseModel):
     peTTM:                         Optional[float] = None
     revenueGrowth3Y:               Optional[float] = None
     revenueGrowth5Y:               Optional[float] = None
-    roaAnnual:                     Optional[float] = None  # roaRfy in response
+    roaAnnual:                     Optional[float] = None
     roeTTM:                        Optional[float] = None
 
-    model_config = {"extra": "allow"}  # allows the 100+ other metric fields through
+    model_config = {"extra": "allow"}
 
-# ─────────────────────────────────────────
-# Series block — time-series arrays
-# annual and quarterly both 60/60 present
-# ─────────────────────────────────────────
 class SeriesBlock(BaseModel):
     annual:    dict[str, list[SeriesEntry]]
     quarterly: dict[str, list[SeriesEntry]]
 
-# ─────────────────────────────────────────
-# Top-level model
-# ─────────────────────────────────────────
 class BasicFinancialsModel(BaseModel):
     metric:     MetricBlock
-    metricType: Optional[str] = None  # "all" — present but not analytically useful
+    metricType: Optional[str] = None
     series:     SeriesBlock
     symbol:     str
 
-    @field_validator("symbol")
+    @field_validator("symbol")          # ← inside class body
     @classmethod
     def symbol_must_not_be_empty(cls, v):
         if not v or not v.strip():

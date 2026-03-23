@@ -62,7 +62,7 @@ def test_lobby_group_count_per_group():
 def test_rate_limit_keys_exist():
     expected_endpoints = {
         "company_profile2", "basic_financials",
-        "eps_surprises", "senate_lobbying", "usa_spending"
+        "earnings", "senate_lobbying", "usa_spending"
     }
     assert set(RATE_LIMIT.keys()) == expected_endpoints
 

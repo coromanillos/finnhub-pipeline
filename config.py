@@ -101,5 +101,5 @@ TO_DATE = "2025-12-31"
 # S3 CONFIGURATION
 # ─────────────────────────────────────────────
 
-S3_BUCKET = "finnhub-pipeline-512724693644-us-east-1-an"
+S3_BUCKET = "finnhub-pipeline-288831154476-us-east-1-an"
 BRONZE_PREFIX = "bronze"

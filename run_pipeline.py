@@ -1,19 +1,17 @@
-# run_piepline.py
-
-from pipeline_company_profile2 import CompanyProfile2Pipeline
-from pipeline_basic_financials import BasicFinancialsPipeline
-from pipeline_eps_surprises import EpsSurprisesPipeline
-from pipeline_senate_lobbying import SenateLobbyingPipeline
-from pipeline_usa_spending import UsaSpendingPipeline
+# run_pipeline.py
+from pipelines.company_profile_pipeline import CompanyProfilePipeline
+from pipelines.basic_financials_pipeline import BasicFinancialsPipeline
+from pipelines.earnings_pipeline import EarningsPipeline
+from pipelines.lobbying_pipeline import LobbyingPipeline
+from pipelines.usa_spending_pipeline import USASpendingPipeline
 
 pipelines = [
-    CompanyProfile2Pipeline(),
+    CompanyProfilePipeline(),
     BasicFinancialsPipeline(),
-    EpsSurprisesPipeline(),
-    SenateLobbyingPipeline(),
-    UsaSpendingPipeline()
+    EarningsPipeline(),
+    LobbyingPipeline(),
+    USASpendingPipeline()
 ]
 
 for pipeline in pipelines:
     pipeline.run()
-    print()

@@ -32,13 +32,6 @@ class SpendingActivity(BaseModel):
     symbol:                           str
     totalValue:                       Union[int, float]
 
-    @field_validator("totalValue", "potentialAmount", "obligatedAmount")  # ← inside SpendingActivity
-    @classmethod
-    def amount_must_be_non_negative(cls, v):
-        if v < 0:
-            raise ValueError(f"amount field must be non-negative, got {v}")
-        return v
-
     @field_validator("actionDate", "performanceStartDate", "lastModifiedDate")  # ← inside SpendingActivity
     @classmethod
     def date_must_not_be_empty(cls, v):

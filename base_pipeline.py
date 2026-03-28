@@ -20,8 +20,6 @@ from config import (
     AWS_SECRET_ACCESS_KEY
 )
 
-load_dotenv()
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s — %(levelname)s — %(message)s"
@@ -79,7 +77,7 @@ class BasePipeline(ABC):
         logger.info(f"Starting {self.ENDPOINT_NAME} ingest for {len(TICKERS)} tickers...")
 
         for i, ticker in enumerate(TICKERS):
-            tick = time.time()  # start timer before the call
+            tick = time.time()
 
             try:
                 validated_data = self.fetch_with_retry(ticker)
@@ -92,7 +90,14 @@ class BasePipeline(ABC):
                     logger.warning(f"   field={err['loc']} | {err['msg']}")
                 self.dead_letter[ticker] = {
                     "raw": getattr(e, "_raw", {}),
-                    "errors": errors
+                    "errors": [
+                        {
+                            "loc": str(err["loc"]),  # ← tuple → string for JSON serialization
+                            "msg": err["msg"],
+                            "type": err["type"]
+                        }
+                        for err in errors
+                    ]
                 }
 
             except Exception as e:
@@ -102,7 +107,6 @@ class BasePipeline(ABC):
                     "errors": [{"msg": f"API error: {str(e)}"}]
                 }
 
-            # Sleep only the remaining time to fill 1 full second
             if i < len(TICKERS) - 1:
                 elapsed = time.time() - tick
                 sleep_time = max(0, self.RATE_LIMIT_SECONDS - elapsed)

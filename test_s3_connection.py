@@ -10,7 +10,6 @@ s3 = boto3.client(
     region_name=os.getenv("AWS_REGION")
 )
 
-# Test write — the only operation base_pipeline.py uses
 s3.put_object(
     Bucket="finnhub-pipeline-288831154476-us-east-1-an",
     Key="bronze/test/connection_test.txt",
@@ -18,7 +17,6 @@ s3.put_object(
 )
 print("✅ S3 write successful — pipeline is ready")
 
-# Clean up
 s3.delete_object(
     Bucket="finnhub-pipeline-288831154476-us-east-1-an",
     Key="bronze/test/connection_test.txt"

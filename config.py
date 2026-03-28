@@ -101,5 +101,8 @@ TO_DATE = "2025-12-31"
 # S3 CONFIGURATION
 # ─────────────────────────────────────────────
 
-S3_BUCKET = "finnhub-pipeline-288831154476-us-east-1-an"
+S3_BUCKET = os.getenv("S3_BUCKET")
 BRONZE_PREFIX = "bronze"
+AWS_REGION = os.getenv("AWS_REGION")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")

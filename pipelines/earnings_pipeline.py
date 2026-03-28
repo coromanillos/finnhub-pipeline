@@ -2,7 +2,7 @@
 from base_pipeline import BasePipeline
 from models.earnings_model import EPSSurprisesModel
 
-class EPSSurprisesPipeline(BasePipeline):
+class EarningsPipeline(BasePipeline):
     ENDPOINT_NAME      = "earnings"
     RATE_LIMIT_SECONDS = 1
     pydantic_model     = EPSSurprisesModel
@@ -17,4 +17,4 @@ class EPSSurprisesPipeline(BasePipeline):
         }
 
 if __name__ == "__main__":
-    EPSSurprisesPipeline().run()
+    EarningsPipeline().run()

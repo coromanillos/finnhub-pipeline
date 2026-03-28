@@ -47,4 +47,4 @@ if __name__ == "__main__":
         for name in failed:
             logger.error(f"   {name}")
     else:
-        logger.info(f"✅ All pipelines completed successfully")
+        logger.info("✅ All pipelines completed successfully")

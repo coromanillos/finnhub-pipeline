@@ -5,7 +5,7 @@ from airflow.operators.python import PythonOperator
 from airflow.operators.dummy import DummyOperator
 from pipelines.company_profile_pipeline import CompanyProfilePipeline
 from pipelines.basic_financials_pipeline import BasicFinancialsPipeline
-from pipelines.earnings_pipeline import EPSSurprisesPipeline
+from pipelines.earnings_pipeline import EarningsPipeline
 from pipelines.lobbying_pipeline import LobbyingPipeline
 from pipelines.usa_spending_pipeline import USASpendingPipeline
 

@@ -1,0 +1,16 @@
+name: 'finnhub'
+version: '1.0.0'
+config-version: 2
+
+profile: 'finnhub'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+log-path: "logs"
+
+models:
+  finnhub:
+    silver:
+      +materialized: view
+    gold:
+      +materialized: table

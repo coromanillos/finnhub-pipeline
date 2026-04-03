@@ -1,0 +1,215 @@
+# models/silver/schema.yml
+version: 2
+
+models:
+  # Company Profile Model
+  - name: company_profile
+    description: "Company profile information from Finnhub"
+    columns:
+      - name: ticker
+        tests: [not_null, unique]
+      - name: pulled_at
+        tests: [not_null]
+      - name: exchange
+        tests: [not_null]
+      - name: market_capitalization
+        tests: [not_null]
+      - name: name
+        tests: [not_null]
+      - name: share_outstanding
+        tests: [not_null]
+      - name: finnhub_ticker
+        tests: [not_null]
+
+  # USA Spending Model
+  - name: usa_spending
+    description: "USA government spending and contract data"
+    columns:
+      - name: ticker
+        tests: [not_null]
+      - name: pulled_at
+        tests: [not_null]
+      - name: action_date
+        tests: [not_null]
+      - name: award_description
+        tests: [not_null]
+      - name: awarding_agency_name
+        tests: [not_null]
+      - name: awarding_office_name
+        tests: [not_null]
+      - name: awarding_sub_agency_name
+        tests: [not_null]
+      - name: country
+        tests: [not_null]
+      - name: last_modified_date
+        tests: [not_null]
+      - name: naics_code
+        tests: [not_null]
+      - name: obligated_amount
+        tests: [not_null]
+      - name: performance_end_date
+        tests: [not_null]
+      - name: performance_start_date
+        tests: [not_null]
+      - name: potential_amount
+        tests: [not_null]
+      - name: recipient_name
+        tests: [not_null]
+      - name: recipient_parent_name
+        tests: [not_null]
+      - name: symbol
+        tests: [not_null]
+      - name: total_value
+        tests: [not_null]
+
+  # Lobbying Model
+  - name: lobbying
+    description: "Senate Lobbying data"
+    columns:
+      - name: ticker
+        tests: [not_null]
+      - name: pulled_at
+        tests: [not_null]
+      - name: client_id
+        tests: [not_null]
+      - name: country
+        tests: [not_null]
+      - name: house_registrant_id
+        tests: [not_null]
+      - name: income
+        tests: [not_null]
+      - name: company_name
+        tests: [not_null]
+      - name: period
+        tests: [not_null]
+      - name: registrant_id
+        tests: [not_null]
+      - name: senate_id
+        tests: [not_null]
+      - name: symbol
+        tests: [not_null]
+
+  # Earnings Model
+  - name: eps_surprises
+    description: "Earnings data"
+    columns:
+      - name: ticker
+        tests: [not_null]
+      - name: pulled_at
+        tests: [not_null]
+      - name: actual
+        tests: [not_null]
+      - name: estimate
+        tests: [not_null]
+      - name: surprise
+        tests: [not_null]
+      - name: surprise_percent
+        tests: [not_null]
+      - name: period
+        tests: [not_null]
+      - name: quarter
+        tests: [not_null]
+      - name: year
+        tests: [not_null]
+      - name: symbol
+        tests: [not_null]
+
+  # Basic Financials Metrics
+  - name: basic_financials_metrics
+    description: "Core scalar financial metrics per ticker per pull date from FINNHUB_BRONZE.basic_financials_raw"
+    columns:
+      - name: ticker
+        tests:
+          - not_null
+      - name: pulled_at
+        tests:
+          - not_null
+      - name: book_value_per_share_annual
+        tests:
+          - not_null
+      - name: book_value_per_share_quarterly
+        tests:
+          - not_null
+      - name: market_capitalization
+        tests:
+          - not_null
+      - name: enterprise_value
+        tests:
+          - not_null
+      - name: eps_annual
+        tests:
+          - not_null
+      - name: eps_ttm
+        tests:
+          - not_null
+      - name: revenue_growth_3y
+        tests:
+          - not_null
+      - name: revenue_growth_5y
+        tests:
+          - not_null
+      - name: gross_margin_annual
+        tests:
+          - not_null
+      - name: gross_margin_ttm
+        tests:
+          - not_null
+      - name: net_profit_margin_annual
+        tests:
+          - not_null
+      - name: net_profit_margin_ttm
+        tests:
+          - not_null
+      - name: current_ratio_annual
+        tests:
+          - not_null
+      - name: current_ratio_quarterly
+        tests:
+          - not_null
+      - name: quick_ratio_annual
+        tests:
+          - not_null
+      - name: quick_ratio_quarterly
+        tests:
+          - not_null
+      - name: pb_annual
+        tests:
+          - not_null
+      - name: pe_annual
+        tests:
+          - not_null
+      - name: ps_annual
+        tests:
+          - not_null
+      - name: roe_ttm
+        tests:
+          - not_null
+      - name: roi_ttm
+        tests:
+          - not_null
+      - name: roa_ttm
+        tests:
+          - not_null
+
+  # Basic Financials Time Series
+  - name: basic_financials_series
+    description: "Exploded historical financial series per ticker, covering annual and quarterly data"
+    columns:
+      - name: ticker
+        tests:
+          - not_null
+      - name: pulled_at
+        tests:
+          - not_null
+      - name: frequency
+        tests:
+          - not_null
+      - name: series_name
+        tests:
+          - not_null
+      - name: period
+        tests:
+          - not_null
+      - name: value
+        tests:
+          - not_null

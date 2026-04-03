@@ -4,15 +4,21 @@
 SELECT
     ticker,
     pulled_at,
-    data:metric:tenDayAverageTradingVolume::FLOAT       AS ten_day_avg_trading_volume,
-    data:metric:thirteenWeekPriceReturnDaily::FLOAT     AS thirteen_week_price_return_daily,
-    data:metric:twentySixWeekPriceReturnDaily::FLOAT    AS twenty_six_week_price_return_daily,
-    data:metric:fiftyTwoWeekHigh::FLOAT                 AS fifty_two_week_high,
-    data:metric:fiftyTwoWeekHighDate::VARCHAR           AS fifty_two_week_high_date,
-    data:metric:fiftyTwoWeekLow::FLOAT                  AS fifty_two_week_low,
-    data:metric:fiftyTwoWeekLowDate::VARCHAR            AS fifty_two_week_low_date,
-    data:metric:fiftyTwoWeekPriceReturnDaily::FLOAT     AS fifty_two_week_price_return_daily,
+    data:metric:"10DayAverageTradingVolume"::FLOAT        AS ten_day_avg_trading_volume,
+    data:metric:"13WeekPriceReturnDaily"::FLOAT           AS thirteen_week_price_return_daily,
+    data:metric:"26WeekPriceReturnDaily"::FLOAT           AS twenty_six_week_price_return_daily,
+    data:metric:"52WeekHigh"::FLOAT                       AS fifty_two_week_high,
+    data:metric:"52WeekHighDate"::VARCHAR                 AS fifty_two_week_high_date,
+    data:metric:"52WeekLow"::FLOAT                        AS fifty_two_week_low,
+    data:metric:"52WeekLowDate"::VARCHAR                  AS fifty_two_week_low_date,
+    data:metric:"52WeekPriceReturnDaily"::FLOAT           AS fifty_two_week_price_return_daily,
+    data:metric:"5DayPriceReturnDaily"::FLOAT             AS five_day_price_return_daily, -- Was missing
+    data:metric:assetTurnoverAnnual::FLOAT              AS asset_turnover_annual,
+    data:metric:assetTurnoverTTM::FLOAT                 AS asset_turnover_ttm,
     data:metric:beta::FLOAT                             AS beta,
+    data:metric:bookValuePerShareAnnual::FLOAT          AS book_value_per_share_annual, -- Was missing
+    data:metric:bookValuePerShareQuarterly::FLOAT AS book_value_per_share_quarterly, -- Was missing
+    data:metric:bookValueShareGrowth5Y::FLOAT           AS book_value_share_growth_five_year, -- Was missing
     data:metric:marketCapitalization::FLOAT             AS market_capitalization,
     data:metric:enterpriseValue::FLOAT                  AS enterprise_value,
     data:metric:forwardPE::FLOAT                        AS forward_pe,
@@ -34,7 +40,7 @@ SELECT
     data:metric:operatingMarginAnnual::FLOAT            AS operating_margin_annual,
     data:metric:operatingMarginTTM::FLOAT               AS operating_margin_ttm,
     data:metric:operatingMargin5Y::FLOAT                AS operating_margin_5y,
-    data:metric:roaAnnual::FLOAT                        AS roa_annual,
+    data:metric:roaAnnual::FLOAT                        AS roa_annual, -- GOOD
     data:metric:roaRfy::FLOAT                           AS roa_rfy,
     data:metric:roaTTM::FLOAT                           AS roa_ttm,
     data:metric:roa5Y::FLOAT                            AS roa_5y,
@@ -47,8 +53,6 @@ SELECT
     data:metric:revenueGrowth3Y::FLOAT                  AS revenue_growth_3y,
     data:metric:revenueGrowth5Y::FLOAT                  AS revenue_growth_5y,
     data:metric:revenueGrowthTTMYoy::FLOAT              AS revenue_growth_ttm_yoy,
-    data:metric:assetTurnoverAnnual::FLOAT              AS asset_turnover_annual,
-    data:metric:assetTurnoverTTM::FLOAT                 AS asset_turnover_ttm,
     data:metric:currentRatioAnnual::FLOAT               AS current_ratio_annual,
     data:metric:currentRatioQuarterly::FLOAT            AS current_ratio_quarterly,
     data:metric:quickRatioAnnual::FLOAT                 AS quick_ratio_annual,
@@ -58,8 +62,10 @@ SELECT
     data:metric:dividendGrowthRate5Y::FLOAT             AS dividend_growth_rate_5y,
     data:metric:payoutRatioAnnual::FLOAT                AS payout_ratio_annual,
     data:metric:payoutRatioTTM::FLOAT                   AS payout_ratio_ttm,
-    data:metric:longTermDebt_equityAnnual::FLOAT        AS long_term_debt_equity_annual,
-    data:metric:totalDebt_totalEquityAnnual::FLOAT      AS total_debt_equity_annual,
+    data:metric:"longTermDebt/equityAnnual"::FLOAT        AS long_term_debt_equity_annual, --error
+    data:metric:"longTermDebt/equityQuarterly"::FLOAT        AS long_term_debt_equity_quarterly, --error
+    data:metric:"totalDebt/totalEquityAnnual"::FLOAT      AS total_debt_equity_annual,  --error
+    data:metric:"totalDebt/totalEquityQuarterly"::FLOAT      AS total_debt_equity_quarterly,  --error
     data:metric:inventoryTurnoverAnnual::FLOAT          AS inventory_turnover_annual,
     data:metric:inventoryTurnoverTTM::FLOAT             AS inventory_turnover_ttm,
     data:metric:receivablesTurnoverAnnual::FLOAT        AS receivables_turnover_annual,

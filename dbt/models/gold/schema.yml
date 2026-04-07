@@ -1,0 +1,28 @@
+# models/gold/schema.yml
+version: 2
+
+models:
+  - name: ticker_scorecard
+    description: "One row per ticker combining company profile, financial metrics, latest EPS surprise, lobbying activity, and government spending. Primary analysis-ready table for all 60 tickers."
+    columns:
+      - name: ticker
+        tests:
+          - not_null
+          - unique
+      - name: company_name
+        tests:
+          - not_null
+      - name: latest_eps_period
+        description: "Most recent quarter period for EPS surprise data"
+
+  - name: government_dependency
+    description: "One row per ticker showing relationship between lobbying spend and government contract awards. Includes derived ratios for dependency analysis."
+    columns:
+      - name: ticker
+        tests:
+          - not_null
+          - unique
+      - name: contracts_to_market_cap_ratio
+        description: "Total obligated government contracts divided by market cap. Higher values indicate greater government revenue dependency."
+      - name: lobbying_per_contract_dollar
+        description: "Total lobbying expenses divided by total obligated amount. Shows lobbying investment per dollar of government contract received."

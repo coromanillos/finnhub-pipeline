@@ -203,8 +203,11 @@ class BasePipeline(ABC):
             logger.error(f"S3 upload failed for {s3_key}: {str(e)}")
             raise
 
-        os.remove(filepath)
-        logger.info(f"Cleaned up temp file: {filepath}")
+        try:
+            os.remove(filepath)
+            logger.info(f"Cleaned up temp file: {filepath}")
+        except FileNotFoundError:
+            logger.warning(f"Temp file already gone, skipping cleanup: {filepath}")
 
         return s3_key
 

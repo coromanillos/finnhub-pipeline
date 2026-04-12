@@ -1,9 +1,14 @@
-# etl_pipeline_dag.py
+# finnhub_bronze_elt.py
+import sys
+import os
 import logging
 from datetime import datetime, timedelta
 
+sys.path.insert(0, '/opt/airflow')
+
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.operators.empty import EmptyOperator
 
 logger = logging.getLogger(__name__)
@@ -46,7 +51,7 @@ default_args = {
 
 # ── DAG definition ─────────────────────────────────────────────────────────────
 with DAG(
-    dag_id="finnhub_bronze_etl",
+    dag_id="finnhub_bronze_elt",
     description="Ingest Finnhub + gov data → validate → S3 bronze layer",
     schedule="0 6 * * 1-5",            # 06:00 UTC, weekdays only
     start_date=datetime(2024, 1, 1),
@@ -88,4 +93,17 @@ with DAG(
     # ── Dependency graph ───────────────────────────────────────────────────────
     # start fans out to all five in parallel; all five fan in to end.
     # The pipelines have no inter-dependencies, so no ordering between them.
-    start >> [company_profile, basic_financials, earnings, lobbying, usa_spending] >> end
+    start >> company_profile >> basic_financials >> earnings >> lobbying >> usa_spending >> end
+
+    from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+
+# inside your existing DAG block, after your existing tasks:
+
+    trigger_snowflake_load = TriggerDagRunOperator(
+        task_id="trigger_snowflake_load",
+        trigger_dag_id="finnhub_snowflake_load",
+        wait_for_completion=False,  # bronze DAG doesn't wait for snowflake to finish
+    )
+
+    # update your dependency chain:
+    start >> company_profile >> basic_financials >> earnings >> lobbying >> usa_spending >> end >> trigger_snowflake_load

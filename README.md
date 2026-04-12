@@ -1,5 +1,5 @@
 # finnhub-pipeline
-Batch processing data pipeline using Airflow, S3, dbt, and snowflake  
+ELT Batch processing data pipeline using Airflow, S3, dbt, and snowflake  
 
 Goal: "This data identifies correlations between lobbying activity, government contract awards, and earnings performance across 60 public companies in defense, energy, and tech."
 

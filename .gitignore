@@ -206,3 +206,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 dbt/profiles.yml
+
+# log artifcats
+logs/
+airflow/logs
+dbt/logs/
+dbt/target/

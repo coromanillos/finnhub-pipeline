@@ -1,6 +1,5 @@
 # finnhub_bronze_elt.py
 import sys
-import os
 import logging
 from datetime import datetime, timedelta
 

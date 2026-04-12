@@ -7,9 +7,10 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
   volumes:
-    - ./airflow/dags:/opt/airflow/dags        # live-reload DAG changes without rebuild
+    - ./airflow/dags:/opt/airflow/dags      
     - ./airflow/logs:/opt/airflow/logs
     - ./airflow/plugins:/opt/airflow/plugins
+    - /var/run/docker.sock:/var/run/docker.sock
   depends_on:
     postgres:
       condition: service_healthy
@@ -46,5 +47,14 @@ services:
     command: scheduler
     restart: always
 
+  dbt:
+    build:
+      context: ./dbt
+      dockerfile: Dockerfile.dbt
+    env_file: .env
+    volumes:
+      - ./dbt:/usr/app/dbt
+    working_dir: /usr/app/dbt
+    entrypoint: ["tail", "-f", "/dev/null"]
 volumes:
   postgres_db:
